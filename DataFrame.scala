@@ -1,4 +1,12 @@
 DF
+import spark.implicits._
+ val spark = SparkSession
+      .builder
+      .appName("SparkSQL")
+      .master("local[*]")
+     // .config("spark.sql.warehouse.dir", "file:///C:/temp") // Necessary to work around a Windows bug in Spark 2.0.0; omit if you're not on Windows.
+      .getOrCreate()
+
 ------------------DataFrames and Datasets-----------------------
 	Lo que diferencia a un dataframe de un dataset es que un dataframe es un dataset que a la vez está organizado en columnas, 
 	de modo que en el dataframe tendremos los datos estructurados y cada columna con su nombre correspondiente. 
