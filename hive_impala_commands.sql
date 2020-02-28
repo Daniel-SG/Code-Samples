@@ -242,10 +242,6 @@ Counts all rows where field is unique and not NULL COUNT(DISTINCT fname)
 
 
 
-
-
-
-
 -- Complex DATA
 
 	--Array
@@ -320,6 +316,21 @@ WHERE phones.key = 'home';
 
 --STRUCT
 -- same as hive
+
+-- Array Struct
+CREATE TABLE array_demo
+(
+  places_lived ARRAY < STRUCT <
+    place: STRING,
+    start_year: INT
+  >>
+)
+STORED AS PARQUET;
+
+DESCRIBE array_demo.places_lived;
+
+SELECT places_lived.pos, places_lived.place, places_lived.start_year
+  FROM array_demo, array_demo.places_lived;		   
 
 -- Expresiones regulares
 
