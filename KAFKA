@@ -12,6 +12,7 @@ CONSUMERS
 - consumers know which broker read from
 - each consumer within a group read exclusive partitions (2 consumers inside the same group don't read the same data)
 - if you gave more consumers than partitions, some consumers will be inactive
+- Inside a consumer group --from-beginning gives you the last position from the offset, not the position 0 (so, it does not work)
 
 ZOOKEEPER
 - zookeeper manage the brokers, helps in performing leader election for partitions, inform kafka about new topics, broker changes etc
@@ -29,8 +30,34 @@ PRODUCERS
 ./bin/kafka-console-producer --broker-list localhost:9092 --topic first_topic												--> Add messages to a topic
 ./bin/kafka-console-producer.sh --broker-list kafka-11.lhr4.traveljigsaw.com:9093 --topic testTopic < othertopic.json 		--> Add message from a file to a topic
 
+CONSUMERS
+./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic											--> Read a topic from the current offset
+./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --from-beginning                         --> Read a topic from the beginning
+./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --max-messages 5                         --> Read 5 messages from that topic
+./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --group first-consumer-group				--> Read from a topic for a group
 
-List all Kafka topics (AMS)
+CONSUMER GROUPS
+./bin/kafka-consumer-groups --bootstrap-server localhost:9092 --list 														--> Show list of consumer groups
+./bin/kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group first-consumer-group						--> Describe the consumer group with the offsets
+
+		GROUP                TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG           
+		first-consumer-group first_topic     0          12              13              1              
+		first-consumer-group first_topic     1          10              12              2             
+		first-consumer-group first_topic     2          10              12              2              
+
+		* CURRENT-OFFSET last offset read by the consumers
+		* LOG-END-OFFSET offset of the last message in each partition
+		* LAG messages pending to be consumed
+
+./bin/kafka-consumer-groups --bootstrap-server localhost:9092 --group first-consumer-group \
+   		--reset-offsets --shift-by 5 --topic first_topic																	--> Add 5 positions the offset in each partition
+
+./bin/kafka-consumer-groups --bootstrap-server localhost:9092 --group first-consumer-group \
+		--reset-offsets --to-earliest --topic first_topic																	--> Reset the offset to the beginning for a group
+
+./bin/kafka-consumer-groups --bootstrap-server localhost:9092 --group first-consumer-group  \
+  		--reset-offsets --to-offset  3 --topic first_topic																	--> Specified the same offset for all partitions	
+
 
 ./bin/kafka-topics.sh --zookeeper zk-04.wbe-02.traveljigsaw.com:2181/kafka/ams --alter --topic eventlogger-experiment --partitions 24	Set the number of partitions for a topic
 ./bin/kafka-topics.sh --zookeeper zk-04.wbe-02.traveljigsaw.com:2181/kafka/ams --topic AllCars --alter --config retention.ms=259200000
