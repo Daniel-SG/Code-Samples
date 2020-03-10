@@ -2,7 +2,7 @@ KAFKA
 - brokers are like servers to kafka
 - when connected to any bootstrap-server (broker) you will be connected to the entire cluster (called kafka broker discovery)
 - topics are divided into partitions and partitions are splited into different brokers
-- only one broker can be a lider for a given partition, only that leader can receive and serve data for a partition, the other brokers will sync the data
+- only one broker can be a leader for a given partition, only that leader can receive and serve data for a partition, the other brokers will sync the data
 - producers can send a key with the message, if so all messages with the same key will go to the same partition
 - Messages are appended to a topic-partition in the order they are sent
 - Consumers read messages in the order stored in a topic-partition
@@ -13,6 +13,21 @@ CONSUMERS
 - each consumer within a group read exclusive partitions (2 consumers inside the same group don't read the same data)
 - if you gave more consumers than partitions, some consumers will be inactive
 - Inside a consumer group --from-beginning gives you the last position from the offset, not the position 0 (so, it does not work)
+
+PRODUCERS
+
+ACKS=0 -> No responde is requested from the brokers once producers send data. If the broker goes offline or there is an 
+		exception, we will lose data
+ACKS=1 -> (default) Leader respone is requested but replication is not guarantee, if an ack is not received, the producer my retry.
+		if the leader broker goes offline but replias haven't replicated the data yet, we have data loss
+
+ACKS=ALL -> The producer waits for the acknowledge of the Leader + replicas, is the most secure method to avoid data loss but it is slower.
+		it has to be used with min.insunc.replicas
+
+IDEMPOTENT PRODUCERS-> Prevent the creation of duplicates in the consumers because of network errors.
+
+
+
 
 ZOOKEEPER
 - zookeeper manage the brokers, helps in performing leader election for partitions, inform kafka about new topics, broker changes etc
@@ -29,6 +44,7 @@ TOPICS
 PRODUCERS
 ./bin/kafka-console-producer --broker-list localhost:9092 --topic first_topic												--> Add messages to a topic
 ./bin/kafka-console-producer.sh --broker-list kafka-11.lhr4.traveljigsaw.com:9093 --topic testTopic < othertopic.json 		--> Add message from a file to a topic
+
 
 CONSUMERS
 ./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic											--> Read a topic from the current offset
