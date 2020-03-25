@@ -1,0 +1,129 @@
+HBASE 
+ 
+
+ # login to Ambari from browser
+http://127.0.0.1:8080
+
+cli web
+http://127.0.0.1:4020
+
+cli
+# ssh into vm and change root password
+ssh root@127.0.0.1 -p 2222
+
+FEATURES
+- HBase helps solve data access issues where random access is required   
+- HBase scales easily, making it ideal for Big Data storage and processing needs 
+- Table data is stored on the Hadoop Distributed File System (HDFS) 
+- HBase tables are comprised of rows, columns, and column families 
+- Every row has a row key for fast lookup 
+- Each column belongs to a particular column family 
+- A table has one or more column families 
+- HBase is essentially a distributed, sorted map   
+- Sorted Map: HBase stores table data as a map, and guarantees that adjacent keys will be stored next to each other on disk 
+- Every row has a row key,a row key is analogous to a primary key in a traditional RDBMS 
+– Rows are stored sorted by row key to enable speedy retrieval of data 
+- Columns can be created on the fly 
+– A column exists for a particular row only if the row has data in that column 
+- All columns belonging to the same column family have the same prefix
+- In HBase, we have just one indexed column – the row key 
+– In relational databases, one would typically normalize tables and use joins to retrieve data 
+– HBase does not support explicit joins ,Instead, a lookup by row key joins data from column families 
+– Relational tables can scale through partitioning or sharding data 
+– HBase automatically partitions data into smaller pieces
+
+HBase does not provide certain popular RDBMS features 
+– Integrated support for SQL 
+– External projects such as Hive, Impala, and Phoenix provide various ways of using SQL to access HBase tables 
+– Support for transac)ons 
+– Multiple indexes on a table 
+– ACID compliance (Atomicity, Consistency, Isolation, Durability)
+
+CRUD Create, read, update, delete ->Hbase provides all of them 
+- Provides versioning to keep track all the historical changes of your data 
+
+ Use HBase if…
+– You need random write, random read, or both (but not neither) 
+– Your applicattion performs thousands of operations per second on multiple terabytes of data 
+– Your access paCerns are wellknown and relatively simple 
+
+Don’t use HBase if… 
+– Your applica)on only appends to your dataset, and tends to read the whole thing when processing 
+– Primary usage is for ad:hoc analy)cs (non:determinis)c access paCerns) 
+– Your data easily fits on one large node 
+ 
+
+COMMANDS hbase-shell
+help
+status
+version
+
+NAME_SPACE
+
+#Create a name space 
+create_namespace 'people' 
+
+#drop
+drop_namespace 'namespaceName'
+
+#alter
+alter_namespace 'namespaceName', {METHOD => 'set','PROPERTY_NAME' => 'PROPERTY_VALUE'}
+
+MAINTENANCE MODE
+#Disabling a table puts it in a maintenance state
+ disable 'table_name'
+ enable 'table_name'
+ 
+CREATE TABLE 
+#create table employees in people namespace 
+create 'people:employees','work','demo' 
+
+#create table movie with descriptions
+create 'movie', {NAME => 'desc'}, {NAME => 'media'}
+
+#to drop a table first it has to be disabled
+disable 'movie'
+drop 'movie'
+
+#To truncate the table is not needed to disable it,Table and column family schema are unaffected 
+truncate 'movie'
+
+ALTER TABLE
+
+#Add a new column family to an exis=ng table
+alter 'movie', NAME => 'media'
+
+#permanently delete an exis=ng column family 
+alter 'movie', NAME => 'media', METHOD => 'delete'
+
+#Modify an exis=ng column family with new parameters
+alter 'movie', NAME => 'desc', VERSIONS => 5
+
+#alter_async to alter a column family schema
+alter_async 'movie', NAME => 'desc', VERSIONS => 6
+
+ 
+#Query a table with the rowId 99 
+get 'NAME_OF_THE_TABLE','99' 
+
+get 'movie', 'row1', {COLUMN => 'desc:title'}
+
+ 
+#Query the entire table 
+scan 'NAME_OF_THE_TABLE' 
+ 
+#Insert or update data 
+put 'NAME_OF_THE_TABLE','ROWID','order:orderID','US-2014-234AA','DIFFERENT VALUES WE MAY LIKE TO ADD' 
+
+
+ 
+#Delete an specific column of a row of an specific version  
+delete 'NAME_OF_THE_TABLE','ROWID','COLUMN_NAME','TIME_STAMP' 
+ 
+#Delete an specific column of a row  
+delete 'NAME_OF_THE_TABLE','ROWID','COLUMN_NAME' 
+ 
+#Delete all information related to an specific rowID  
+delete 'NAME_OF_THE_TABLE','ROWID' 
+ 
+
