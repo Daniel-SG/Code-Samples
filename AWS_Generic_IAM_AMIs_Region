@@ -1,0 +1,21 @@
+AWS
+Certification ->SAA-C02
+
+AWS REGIONS
+us-east-1
+	each regions has availability zones (us-east-1 a,us-east-1 b...) those are physical data centers in the region
+
+IAM (Identity and Access Management)
+
+	Users -> Usually Physical Person
+	Groups -> Function (admin,devops,engineering)
+	Roles -> Internal usage within AWS resources
+	Policies -> Define what Users,groups and Roles can and can't do (JSON document)
+
+AMIs (Amazon Machine Image)
+- There are many pre-built and you can create your own Image
+- Your own Image can only work in your specific AWS Region
+- You can use AMI's other people, even rent them per hour
+- They are found in Amazon Market Place
+- May content malware!
+- They live in S3
