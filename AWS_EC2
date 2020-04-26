@@ -1,0 +1,59 @@
+EC2 
+ - Instance of a virtual machines in AWS
+ - In the security groups you can define inbound and outbound traffic
+ - Elastic IP allows to keep the same public IP even you you stop and start your EC2 instance
+ - If you want to launch an script when starting the instance, you have to add it in the "Advanced Detais -> User Data" when configuring the instance
+ 	example of installing apache httpd and adding info in index.html:
+ 	#!/bin/bash
+	# Use this for your user data (script without newlines)
+	# install httpd (Linux 2 version)
+	yum update -y
+	yum install -y httpd.x86_64
+	systemctl start httpd.service
+	systemctl enable httpd.service
+	echo "Hello World from $(hostname -f)" > /var/www/html/index.html
+
+Types of EC2
+	 On demand: Pay for what you use
+	  - They are the most expesive
+	  - Recommended for short terms and interrupted workloads
+
+	Reserved instances
+	 - from 1 to 3 years
+	 - payment upfront
+	 - 75% discount compared to On demand
+	 - There are other subtypes like..
+	 	- Convertible Reserved instance: Can change the EC2 instance type, up to 54% discount
+	 	- Scheduled Reserved instance: Launch within the time window you reseve (1 hour a day, from 15 to 18 etc)
+
+	Spot Instances
+		- 90% discount
+		- You can lose the instance at any time if your max price is less than the current spot price
+		- Useful for jobs that can be rerun (batch process, image rendering...)
+		- If your spot is claimed you can block it from 1 to 6 hours
+		- If you cancel a spot request, the spot instance is not cancelled, you have to do it manually
+		Spot Fleets
+			- Define possible launch pools and launch the one that fits better according the strategy choosen (lowestPrice,diversified,capacityOptimized)
+
+	Dedicated Host
+		- Physical dedicated host for your use (not shared)
+		- Full control for EC2 instance
+		- 3 years contract
+		- More expensive
+		- Useful to bring your own licensed software
+
+	Dedicated Instance
+		- Instances running hardware that is dedicated to you
+		- May share the hardware with other accounts but only your accounts
+		- No control over instance placement
+
+	There are as well other types of Instances:
+		- R apps that need a lot of RAM
+		- C apps that need good CPU (databases,computational things)
+		- M Medium approach between Ram and CPU (general,Webs)
+		- I Apps that need good I/O (databases)
+		- G Apps that need good GPU (Video rendering, machine learning)
+
+		T2/T3 bustable instances (up to capacity, use credits)
+		T2/T3 unlimeted burst
+		https://www.ec2instances.info/
