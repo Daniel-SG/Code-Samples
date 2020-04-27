@@ -57,3 +57,22 @@ Types of EC2
 		T2/T3 bustable instances (up to capacity, use credits)
 		T2/T3 unlimeted burst
 		https://www.ec2instances.info/
+
+Placements groups
+- You can define how your EC2 instances will be set respect the rest of your AWS environment or respect other EC2 instances
+- There are 3 strategies
+	- Cluster: All instances in the same rack (and availability zone) 
+			- Pros: Low latency, high speed netowrk
+			- Cons: If the rack fails, all instances fail at the same time
+			- Use case: Bigdata jobs, apps that need high speed network
+
+	- Spread: Every EC2 instance will be in a different hardware
+			- Pro: Across different availability zones,EC2 instances in a different hardware
+			- Cons: Limited to 7 instances per availability zone
+			- Use case: Apps where max availability is needed and when every instance must be independent from each other
+
+	- Partition: 
+			- Up to 7 partitions per availability zone, in every partition you can add many EC2 instances
+			- Up to 100 EC2 instances
+			- Partition are in a different racks
+			- Use case: HDFS, cassandra, Kafka, HBASE
