@@ -74,6 +74,8 @@ peopleDF.join(zcodesDF, peopleDF.pcode == zcodesDF.zip).show()
 orderDevicesDF = sumDevicesDF.orderBy($"active_num".desc)
 //cast
 DF.withColumn("new_name_col",col("current_name_col").cast("Integer"))
+//alias groupby
+val totalValues=retention.groupBy("database_name","table_name").agg(sum("num_rows_in_partition").alias("Total")).show
 
 to work with columns
 accountsDF.select($"first_name")
