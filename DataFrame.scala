@@ -72,6 +72,8 @@ peopleDF.join(pcodesDF,peopleDF("pcode") === pcodesDF("pcode"),"left_outer").sho
 peopleDF.join(zcodesDF, $"pcode" === $"zip").show o
 peopleDF.join(zcodesDF, peopleDF.pcode == zcodesDF.zip).show()
 orderDevicesDF = sumDevicesDF.orderBy($"active_num".desc)
+//cast
+DF.withColumn("new_name_col",col("current_name_col").cast("Integer"))
 
 to work with columns
 accountsDF.select($"first_name")
