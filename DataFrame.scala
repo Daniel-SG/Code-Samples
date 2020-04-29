@@ -29,6 +29,11 @@ import spark.implicits._
 		//created manually
 		val mydata = List(("Josiah","Bartlett"),("Harry","Potter"))
 		val myDF = spark.createDataFrame(mydata)
+		//or
+		val someDF = Seq(
+ 		 (8, "bat"),
+ 		 (64, "mouse")
+		).toDF("number", "word")
 		
 		usersDF.printSchema shows the schema inferred
 		usersDF.show
