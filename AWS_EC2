@@ -3,15 +3,12 @@ EC2
  - In the security groups you can define inbound and outbound traffic
  - Elastic IP allows to keep the same public IP even you you stop and start your EC2 instance
  - If you want to launch an script when starting the instance, you have to add it in the "Advanced Detais -> User Data" when configuring the instance
- 	example of installing apache httpd and adding info in index.html:
- 	#!/bin/bash
-	# Use this for your user data (script without newlines)
-	# install httpd (Linux 2 version)
-	yum update -y
-	yum install -y httpd.x86_64
-	systemctl start httpd.service
-	systemctl enable httpd.service
-	echo "Hello World from $(hostname -f)" > /var/www/html/index.html
+ - EC2 Hibernate 
+ 	- only for On Demand and Reserved Instances
+ 	- Max hibernation of 60 days
+ 	- Instance RAM size les 150 GB
+ 	- Not all instances are avaiable to Hibernate (only C,R,M)
+ 	- it is found in Configure Instance under the name Stop Hibernate behaviour, select the checkbox
 
 Types of EC2
 	 On demand: Pay for what you use
@@ -24,7 +21,7 @@ Types of EC2
 	 - 75% discount compared to On demand
 	 - There are other subtypes like..
 	 	- Convertible Reserved instance: Can change the EC2 instance type, up to 54% discount
-	 	- Scheduled Reserved instance: Launch within the time window you reseve (1 hour a day, from 15 to 18 etc)
+	 	- Scheduled Reserved instance: Launch within the time window you reseve (1 hour a day, from 15:00 to 18:00 etc)
 
 	Spot Instances
 		- 90% discount
@@ -57,6 +54,8 @@ Types of EC2
 		T2/T3 bustable instances (up to capacity, use credits)
 		T2/T3 unlimeted burst
 		https://www.ec2instances.info/
+
+
 
 Placements groups
 - You can define how your EC2 instances will be set respect the rest of your AWS environment or respect other EC2 instances
