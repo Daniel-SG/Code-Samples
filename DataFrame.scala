@@ -79,6 +79,16 @@ peopleDF.join(zcodesDF, peopleDF.pcode == zcodesDF.zip).show()
 orderDevicesDF = sumDevicesDF.orderBy($"active_num".desc)
 //cast
 DF.withColumn("new_name_col",col("current_name_col").cast("Integer"))
+//Cast inside struct (Struct name -> originalCost, column to change-> amount
+val file=spark.read.parquet("hdfs://nameservice1/src/kafka/promotion-platform-search-log-event/source=LHR/hash=651451cd4b7b03c44d5985a61e7f6f3d/date=2020-04-26/part-00017-a7d8bd52-436b-43fe-a26e-20c127a84ba6.c000.snappy.parquet")
+                     
+                        val columns = file
+                          .select(col(s"originalCost.*"))
+                          .columns
+                          .filterNot(Array("amount").contains) //select only the columns we want to change
+                          .map(name => col(s"originalCost.$name"))
+    val file2 =     file.withColumn("originalCost", struct(columns ++
+                          castNestedColumnIfExists(file, "originalCost.amount", DoubleType) : _*))
 //alias groupby
 val totalValues=retention.groupBy("database_name","table_name").agg(sum("num_rows_in_partition").alias("Total")).show
 
