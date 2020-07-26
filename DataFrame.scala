@@ -167,5 +167,67 @@ spark2-submit \
 --class stubs.AccountsByState \  --> el nombre de la clase
 target/accounts-by-state-1.0.jar CA --> el nombre del jar que crea cuando compila bien
 
+----------------Starting spark shell------------------
+Spark shell has a number of different start-up options, including
+─ master: specify the cluster to connect to
+─ jars: Additional JAR files (Scala only)
+─ py-files: Additional Python files (Python only)
+─ name: the name the Spark Application UI uses for this application
+─ Defaults to PySparkShell (Python) or Spark shell (Scala)
+─ help: Show all the available shell options
+
+The possible values for the master option include
+─ yarn
+─ spark://masternode:port (Spark Standalone)
+─ mesos://masternode:port (Mesos)
+─ local[*] runs locally with as many threads as cores (default)
+─ local[n] runs locally with n threads
+─ local runs locally with a single thread
+
+spark2-shell --master yarn
+---------------------------------------------------------------
+-------------LOG LEVEL-----------------------------
+Available log levels are
+─ TRACE
+─ DEBUG
+─ INFO (default level in Spark applications)
+─ WARN (default level in Spark shell)
+─ ERROR
+─ FATAL
+─ OFF
+spark.sparkContext.setLogLevel("INFO")
+---------------------------------------------------------------
+----------------------Run scala program------------------------
+spark2-submit --class NameList MyJarFile.jar people.json namelist
+
+General submit flags include
+─ master: local, yarn, or a Mesos or Spark Standalone cluster manager
+URI
+─ jars: Additional JAR files (Scala and Java only)
+─ pyfiles: Additional Python files (Python only)
+─ driver-java-options: Parameters to pass to the driver JVM
+▪ YARN-specific flags include
+─ num-executors: Number of executors to start application with
+─ driver-cores: Number cores to allocate for the Spark driver
+─ queue: YARN queue to run in
+▪ Show all available options
+─ help
+-----------------------------------------------------------------------
+---------------------------Config properties---------------------------
+spark.master: Cluster type or URI to submit application to
+─ spark.app.name: Application name displayed in the Spark UI
+─ spark.submit.deployMode: Whether to run application in client or
+cluster mode (default: client)
+─ spark.ui.port: Port to run the Spark Application UI (default 4040)
+─ spark.executor.memory: How much memory to allocate to each
+Executor (default 1g)
+─ spark.pyspark.python: Which Python executable to use for Pyspark
+----------------------------------------------------------------------
+---------------------------PARTITIONS---------------------------------
+leer particiones rdd -> myRDD.getNumPartitions()
+Specify the number of partitions when data is read -> myRDD = sc.textFile(myfile,5)
+repartition shuffles the data into more or fewer partitions -> newRDD = myRDD.repartition(15)
+Specify the number of partitions created by transformations->countRDD = wordsRDD.reduceByKey(lambda v1, v2: v1 + v2, 15)
+Viewing RDD Execution Plans -> Use the RDD toDebugString function
 
 
