@@ -98,7 +98,25 @@ val fnCol = accountsDF("first_name")
 val lucyCol = (fnCol === "Lucy")
 accountsDF.select($"first_name",$"last_name",lucyCol).show
 
+-------------------------------------------------------------
+---------------------Case class example ---------------------
+object caseClassExample {
+	def main(args: Array[String]){
+		    val alice = Person("Alice", 25)
+				val rabbit = Person("Bugs",  50)
+				val duck = Person("Donald",  21)
+				
+				for(gente <- List(alice,rabbit,duck)){
+				  gente match {
+				    case Person("Alice",25) => println("Hello Alice")
+				    case Person("Bugs",50) => println("Hello Bugs")
+				    case Person("Donald",21) => println("Hello Donald")
+				  }
+				}
+	}
 
+}
+case class Person(fName:String, age:Int) 
 
 -------------------------------------------------------------
 -----------------------Saving a DataFrame--------------------
