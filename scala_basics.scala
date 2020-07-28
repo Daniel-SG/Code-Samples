@@ -187,7 +187,15 @@ object Basics {
     for (brand <- phonebrands; model <- newmodels) {
       println(brand + " " + model)
     }
-  }
-  }
+    
+ //Some - None
+ 
+val a = Map("foo" -> "bar", "bar" -> "foo")
+a.get("foo") //returns Some(bar)
+a.get("nothing") //returns None
 
+
+val r = a.get("foo") match {
+  case Some(_) => println("we matched") //returns we matched
+  case None => println("or did we")
 }
