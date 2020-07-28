@@ -198,4 +198,7 @@ a.get("nothing") //returns None
 val r = a.get("foo") match {
   case Some(_) => println("we matched") //returns we matched
   case None => println("or did we")
+  
+  //Flatten
+  List(List(1, 2), List(3, 4), List(5,6)).flatten //List[Int] = List(1, 2, 3, 4, 5, 6)
 }
