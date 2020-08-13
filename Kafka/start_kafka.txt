@@ -1,0 +1,18 @@
+https://medium.com/@Ankitthakur/apache-kafka-installation-on-mac-using-homebrew-a367cdefd273
+
+ 1- START SERVER
+ 	zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties & kafka-server-start /usr/local/etc/kafka/server.properties
+ 
+ 2- CREATE TOPIC
+ 	kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+3- INITIATE PRODUCER
+	kafka-console-producer --broker-list localhost:9092 --topic test
+
+4- INITIATE CONSUMER
+	kafka-console-consumer --bootstrap-server localhost:9092 --topic test --from-beginning
+
+
+
+
+kafka-console-consumer --bootstrap-server kafka-05.lhr4.traveljigsaw.com:9093,kafka-07.lhr4.traveljigsaw.com:9093,kafka-09.lhr4.traveljigsaw.com:9093 --topic eventlogger-visit-test --from-beginnig
