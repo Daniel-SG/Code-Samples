@@ -97,7 +97,85 @@ root
  |    |-- firstname: string (nullable = true)
  |    |-- middlename: string (nullable = true)
  |    |-- secondname: string (nullable = true)
-		
+
+//Creating manually array of Structs
+
+val data3 = Seq(
+  Row(8,Array(Row("Julius ","Cesar"),Row("Adolfo ","Dominguez"))),
+  Row(64,Array(Row("Will ","Smith"),Row("Lionel ","Messi")))
+ )
+
+
+ namesDefinition = new StructType(
+   Array(
+      StructField("firstname",StringType, true),
+      StructField("secondname",StringType, true)
+      ))
+      
+     val schema3 = StructType(
+  List(
+    StructField("number", IntegerType, true),
+    StructField("Complete_Name", ArrayType(StructType(namesDefinition)), true)
+  )
+)
+val df3 = spark.createDataFrame(
+  spark.sparkContext.parallelize(data3),
+  schema3
+) 
+
++------+----------------------------------------+
+|number|Complete_Name                           |
++------+----------------------------------------+
+|8     |[[Julius , Cesar], [Adolfo , Dominguez]]|
+|64    |[[Will , Smith], [Lionel , Messi]]      |
++------+----------------------------------------+
+
+root
+ |-- number: integer (nullable = true)
+ |-- Complete_Name: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- firstname: string (nullable = true)
+ |    |    |-- secondname: string (nullable = true)
+
+//------- Struct of arrays
+
+// ---------------- Structs of arrays
+
+val data4 = Seq(
+  Row(8,Row(Array("a","b","c"),Array("1","2")))
+ )
+ 
+val  otro = new StructType(
+   Array(
+      StructField("characters",ArrayType(StringType), true),
+      StructField("numbers",ArrayType(StringType), true)
+      )
+)
+
+val schema4 = StructType(
+  List(
+    StructField("number", IntegerType, true),
+    StructField("structArrays", StructType(otro), true)
+  )
+)
+ val df4 = spark.createDataFrame(
+  spark.sparkContext.parallelize(data4),
+  schema4
+) 
+
++------+-------------------+
+|number|Another            |
++------+-------------------+
+|8     |[[a, b, c], [1, 2]]|
++------+-------------------+
+
+root
+ |-- number: integer (nullable = true)
+ |-- Another: struct (nullable = true)
+ |    |-- characters: array (nullable = true)
+ |    |    |-- element: string (containsNull = true)
+ |    |-- numbers: array (nullable = true)
+ |    |    |-- element: string (containsNull = true)
 //we can define the schema explicitilly and load the data from an external source
 		import org.apache.spark.sql.types._
 		val columnsList = List(
