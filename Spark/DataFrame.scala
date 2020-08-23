@@ -34,19 +34,71 @@ import spark.implicits._
  		 (8, "bat"),
  		 (64, "mouse")
 		).toDF("number", "word")
+		//or DEFINING SCHEMA EXPLICITILY
+
+		val data = Seq(
+  			Row(8, "bat"),
+ 			Row(64, "mouse"),
+ 			Row(-27, "horse")
+		)
+
+	val schema = StructType(
+  		List(
+    			StructField("number", IntegerType, true),
+    			StructField("word", StringType, true)
+  			)
+		)
+
+	val df1 = spark.createDataFrame(
+  		spark.sparkContext.parallelize(data),
+  		schema
+		)
+//Creating manually complex data types Array and Struct
+
+val data2 = Seq(
+	//we create a row inside another row to make the struct
+  Row(8,Array("1","2"),Row("James ","","Smith")), //firstname,middlename,secondname
+  Row(64,Array("3","4"),Row("James ","","Smith")),
+  Row(-27,Array("5","6"),Row("James ","","Smith"))
+)
+
+val namesDefinition = new StructType(
+   Array(
+      StructField("firstname",StringType, true),
+      StructField("middlename",StringType, true),
+      StructField("secondname",StringType, true)
+      ))
+      
+val schema2 = StructType(
+  List(
+    StructField("number", IntegerType, true),
+    StructField("arraySample", ArrayType(StringType), true), //it is an ArrayType
+    StructField("name", StructType(namesDefinition), true) // it is StructType that we have defined above
+  )
+)
+
+val df2 = spark.createDataFrame(
+  spark.sparkContext.parallelize(data2),
+  schema2
+)
++------+-----------+-----------------+
+|number|arraySample|             name|
++------+-----------+-----------------+
+|     8|     [1, 2]|[James , , Smith]|
+|    64|     [3, 4]|[James , , Smith]|
+|   -27|     [5, 6]|[James , , Smith]|
++------+-----------+-----------------+
+
+root
+ |-- number: integer (nullable = true)
+ |-- arraySample: array (nullable = true)
+ |    |-- element: string (containsNull = true)
+ |-- name: struct (nullable = true)
+ |    |-- firstname: string (nullable = true)
+ |    |-- middlename: string (nullable = true)
+ |    |-- secondname: string (nullable = true)
 		
-		usersDF.printSchema shows the schema inferred
-		usersDF.show
-		usersDF.count
-		usersDF.first
-		usersDF.take(n): returns the first n rows as an array
-		usersDF.show(n): display the first n rows in tabular form
-		usersDF.collect: returns all the rows in the DataFrame as an array
-		usersDF.write: save the data to a file or other data source
-		nameAgeDF = usersDF.select("name","age")
-		over20DF = usersDF.where("age > 20")
-		
-		DEFINING SCHEMA EXPLICITILY
+//we can define the schema explicitilly and load the data from an external source
 		import org.apache.spark.sql.types._
 		val columnsList = List(
 			StructField("pcode", StringType),
@@ -65,6 +117,16 @@ or
 - peopleDF.where(peopleDF("firstName").startsWith("A")).show
 peopleDF.select($"lastName",($"age" * 10).alias("age_10")).show //using alias
  
+usersDF.printSchema shows the schema inferred
+		usersDF.show
+		usersDF.count
+		usersDF.first
+		usersDF.take(n): returns the first n rows as an array
+		usersDF.show(n): display the first n rows in tabular form
+		usersDF.collect: returns all the rows in the DataFrame as an array
+		usersDF.write: save the data to a file or other data source
+		nameAgeDF = usersDF.select("name","age")
+		over20DF = usersDF.where("age > 20")
 
 examples:
 peopleDF.groupBy("pcode").count().show()
