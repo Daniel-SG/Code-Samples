@@ -93,8 +93,12 @@ object Basics {
     println("-----MAP------")
     println("los maps son inmutables, para que sean mutables..")
     println("val mutRec = scala.collection.mutable.Map(..")
+    val myMap: Map[Int,String] =  Map()
     val myMap: Map[Int,String] = Map(1 -> "a", 2 -> "b")
     val myMap2 = Map(1 -> "a", 2 -> "b")
+    
+    myMap2 foreach (x => println (x._1 + "-->" + x._2))
+    for ((k,v) <- myMap) printf("key: %s, value: %s\n", k, v)
     println(myMap2.contains(1))
     println(myMap2.keys)
     println( myMap2.values)
