@@ -7,10 +7,14 @@ git log --grep -i 'big changes' commits that contains 'big changes' phrase in th
 
 git checkout commit_id -> Retrieves the files from that commit_id
 git checkout -f master -> Same as git checkout but overwriting the files that had been modified
+git checkout . -> reeplaces all from the working directory with files from the last commit
 
 git pull -> git fetch + git merge
 
 git clone --shallow -> Copies the most recent version from the repo without the history
+
+git clean -d -n -> deletes the untracked files, with -d and -n it makes a dry run to show you what would delete
+git clean -i -> you can specify which unstaged files delete 
 
 git add -p fileName.txt -> Selecting "s" it allows you choosing which changes add
 
@@ -28,11 +32,16 @@ git blame filename -> tell us which person, and more importantly which commit, 
 
 git grep Alice 3ba3f98~1 -> commits of files that contain Alice and are before that commit
 
-git revert 3ba3f98 -> reviert that commit
+git revert 3ba3f98 -> reviert that commit and clear the working directory
+
 git reset -> it is the opposite operation as git add (delete from stage)
-git reset commitid -> will clear the index, and roll the repository back to that revision, as if the subsequent commits had never happened. It won’t change the working directory, 
-                      so the current state of our files won’tbe lost, but the history of how we got to that state will be
+git reset commitid -> will clear the index, and roll the repository back to that revision, as if the subsequent commits had never happened. It won’t change the                         working directory, so the current state of our files won’tbe lost, but the history of how we got to that state will be
+git reset --soft HEAD^ -> This has the effect of undoing the commit, taking us back to just before we made it. Note it leaves our changes staged in the index.
 git reset --hard -> clear the index and change the working directory
 
 git config --global alias.sla 'log --oneline --decorate --graph --all' -> to add an alias,git sla = git log --oneline --decorate --graph --all
-Git exercises -> https://thoughtbot.com/upcase/mastering-git
+
+git commit --amend --no-edit -> allows you to add new files in the previous commit (--no-edit, you don't have to specify a new commit message)
+
+Git Tutorial -> https://thoughtbot.com/upcase/mastering-git
+
