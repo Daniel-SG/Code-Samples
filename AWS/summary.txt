@@ -56,9 +56,13 @@ Load Balancers
  1. Classic load balancer, supports HTTP,HTTPS,TCP.(X-Z, disabled by default and free of charge if used)support only one SSL certificate
  2. Application Load Balancer, supports HTTP HTTPS WebSocket (X-Z, Enabled by default and free of charge if used) support several SSL certificates at the same time
  	- the instances are divided in target groups
+	- ALBs are reverse proxies that sit between the internet and your application. Every request to your application gets handled by the load balancer first. 
+The load balancer then makes another request to your application and finally forwards the response from your application to the caller.
  3. Network Load Balancer TCP,TLS, UDP (X-Z, disabled by default and Charge if used)uses SNI
  	- is very fast, low latency
  	- has one static IP per AZ
+	-behave like load balancers, but they work by routing network packets rather than by proxying HTTP requests. it's more like a sophisticated network router.
+	 Our recommendation is to consider using an NLB first, since it offers the peace of mind of not having to worryabout any obscure capacity limits. The fact 	    that it’s also faster and less expensive is a nice bonus.
 
  - Load Balancers can be internal (may be accessed from outside) or internal
  -Troubleshooting:
@@ -83,6 +87,13 @@ Auto Scaling Group ASG
 - You can schedule scale-in/out at some specific time
 - You cooldown let you add some time before scale-in/out is triggered
 - lifecicle hook is the availability to make some preparations before scaling in/out
+- Therefore, the first question you should ask yourself is: are your EC2 costs high enough that any reduction in usage will be materially significant? As a thought
+experiment, consider if your EC2 bill were to go down by 30%—would that be a big deal for your business? If not,the effort and complexity of getting Auto Scaling working
+properly is probably not going to be worth it. You might as well just keep the extra headroom during off-peak periods and let it work for you in case of an emergency
+ 
+The other thing to consider is: does your EC2 demand vary enough for Auto Scaling to even matter? If the fluctuations are not significant, or they are too abrupt, or
+they are not very smooth, Auto Scaling will almost certainly not work well for you.
+
 
 
 
@@ -119,6 +130,7 @@ Types of EC2
 		- If you cancel a spot request, the spot instance is not cancelled, you have to do it manually
 		Spot Fleets
 			- Define possible launch pools and launch the one that fits better according the strategy choosen (lowestPrice,diversified,capacityOptimized)
+		- In general the best plans are savings plans, reserved instances, and spot instances
 
 	Dedicated Host
 		- Physical dedicated host for your use (not shared)
@@ -166,7 +178,6 @@ Placements groups
 
 EC2 Metadata
 - to access to the EC2 metadata, from the CLI of the EC2 we have to run curl http://169.254.169.254/latest/meta-data/
-
 
 S3
 - buckets are defined at a region level
@@ -324,6 +335,7 @@ AWS SQS FIFO
 - no duplicates (if deduplication is activated, it removes duplicates messages)
 - not available in all regions
 - you can have as many consumers as partitions groups
+- throughput limit of 300 messages per second
 
 AWS SNS
 - it is like a publish susbcribe method
@@ -333,6 +345,8 @@ AWS SNS
 - lets you receive email notifications
 
 AWS Kinesis (Streams)
+- Like SQS but with many consumers
+- Cheaper than SQS
 - Automatically duplicates data to 3 AZ
 - Data is divided in ordered shards or partitions (Like lanes in the high way)
 - Data retention up to 7 days
@@ -380,6 +394,9 @@ AWS Lambda Limits to Know
 • Size of uncompressed deployment (code + dependencies): 250 MB
 • Can use the /tmp directory to load other files at startup
 • Size of environment variables: 4 KB
+• Our rule of thumb is simple: If you have a small piece of code that will rarely need to be changed and that needs to
+run in response to something that happens in your AWS account, then Lambda is a very good default choice. You can even define the code in your CloudFormation
+template so that this piece of custom functionality truly becomes part of your infrastructure. For everything else, we advise a lot of caution.
 
 Lambda @ Edge
 - deploy lambda functions in all regions
@@ -585,6 +602,19 @@ it has two types of CMK (Customer Master Key)
 	used for encrypt/decrypt operations
 	public key downloable but you access the private key unencrypted
 	use case: encryptopn outside of AWS by users who can't call the MKS API
+	
+CloudFormation
+- With CloudFormation, you define your AWS resources as a YAML script (or JSON). Then you point CloudFormation to your AWS account, and it creates all the resources you defined. If you run the script again without making any changes, CloudFormation won’t do anything (it’s idempotent). If you make a change to one resource, it will change only that resource, plus any other resources that depend on the modified one (if necessary).
+If you change your mind about an update, you can safely tell CloudFormation to roll it back. You can also tell
+CloudFormation to tear down everything it created, and it will give you your AWS account back in the original state
+- The problems arise when you modify something manually that should be under CloudFormation’s control, because when you do that, you can expect unpredictable behavior
+- Our rule of thumb is to let CloudFormation deal with all the AWS things that are either static or change very rarely; things such as VPC configurations, security
+groups, load balancers, deployment pipelines, and IAM roles. Other things, such as DynamoDB tables, Kinesis streams, Auto Scaling settings, and sometimes S3 buckets,
+are better managed elsewhere
+
+
+Route 53
+- It's a DNS service. It lets you translate domain names to IP addresses.
 
 - ARCHTECTURE EXAMPLES
 aws.amazon.com/architecure
