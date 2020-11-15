@@ -393,6 +393,13 @@ DynamoDB
 • Integrated with IAM for security, authorization and administration
 • Enables event driven programming with DynamoDB Streams
 • Low cost and auto scaling capabilities
+• Useful for B-Tree data structure
+• It is better to start on Demand nad later on Provision Capacity
+• If on demand is too expensive, probably Dynamo is not the best option or you
+• Local index: Local indexes come with the constraint that all the records that share the same partition key need to fit in 10 GB, and once that allocation
+  gets exhausted, all writes with that partition key will start failing. Unless you know for sure that you won’t ever exceed this limit, we recommend avoiding local indexes
+• global indexes don’t constrain your table size in any way, the downside is if the provisioned throughput of a global index happens to be insufficient
+  to keep up with updates on the main table, the internal queue can get full and then all operations will fail
 
 
 DynamoDB - Basics
