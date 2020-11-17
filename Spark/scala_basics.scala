@@ -206,3 +206,9 @@ val r = a.get("foo") match {
   //Flatten
   List(List(1, 2), List(3, 4), List(5,6)).flatten //List[Int] = List(1, 2, 3, 4, 5, 6)
 }
+    
+//Tailrec recursion in the last line of the function, useful for avoiding stack overflow
+@tailrec
+  def concatenateTailrec(aString: String, n: Int, accumulator: String): String =
+    if (n <= 0) accumulator
+    else concatenateTailrec(aString, n - 1, aString + accumulator)    
