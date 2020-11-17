@@ -153,7 +153,7 @@ object Basics {
     val sorrentoPhones= List("F00L", "F01L", "F10L", "F11L", "F20L", "F21L", "F22L", "F23L", "F24L")
 
 
-    //While
+    //While -- avoid loops in Scala use functional programing instead
     var i = 0
     while (i < sorrentoPhones.length)
     {
