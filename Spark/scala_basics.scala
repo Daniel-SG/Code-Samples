@@ -227,3 +227,14 @@ val r = a.get("foo") match {
 
   calledByValue(System.nanoTime()) //2328821855021 - 2328821855021 -> The function nanoTime() is evaluated before being sent to the callByValue
   calledByName(System.nanoTime()) //2410996413033 - 2410996441417 -> The function nanoTime() is evaluated everytime is used inside callByName
+    
+    //Default arguments
+    def savePicture(format: String = "jpg", width: Int = 1920, height: Int = 1080): Unit = println("saving picture")
+  savePicture(width = 800)
+
+  /*
+    1. pass in every leading argument
+    2. name the arguments
+   */
+
+  savePicture(height = 600, width = 800, format = "bmp")
