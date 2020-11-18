@@ -212,3 +212,18 @@ val r = a.get("foo") match {
   def concatenateTailrec(aString: String, n: Int, accumulator: String): String =
     if (n <= 0) accumulator
     else concatenateTailrec(aString, n - 1, aString + accumulator)    
+    
+    
+   //Call by Value - Call by Name 
+  def calledByValue(x: Long): Unit = {
+    println(x)
+    println(x)
+  }
+
+  def calledByName(x: => Long): Unit = {
+    println(x) 
+    println(x)
+  }
+
+  calledByValue(System.nanoTime()) //2328821855021 - 2328821855021 -> The function nanoTime() is evaluated before being sent to the callByValue
+  calledByName(System.nanoTime()) //2410996413033 - 2410996441417 -> The function nanoTime() is evaluated everytime is used inside callByName
