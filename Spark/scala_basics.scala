@@ -238,3 +238,28 @@ val r = a.get("foo") match {
    */
 
   savePicture(height = 600, width = 800, format = "bmp")
+    
+    //The difference between objects and classes is that objects can not receive parameters
+    //Objects are singleton by default
+    
+    object Person { // type + its only instance
+    // "static"/"class" - level functionality
+    val N_EYES = 2
+    }
+    val person1 = Person //you musnt instanciate with "new" 
+    val person2 = Person
+    println(person1 == person2) //true
+    
+    //You can either extend your object with App (object MyScalaAppRocks extends App) or create a main method (def main(String:Array))
+    
+    //Inheritance
+    // constructors
+  class Person(name: String, age: Int) {
+    def this(name: String) = this(name, 0)
+  }
+  class Adult(name: String, age: Int, idCard: String) extends Person(name,age) //you have to specify the parameters from the super class
+   //if you want to prevent a class being override
+    // preventing overrides
+  // 1 - use final on member
+  // 2 - use final on the entire class
+  // 3 - seal the class = extend classes in THIS FILE, prevent extension in other files
