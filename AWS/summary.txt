@@ -608,9 +608,12 @@ CloudFormation
 If you change your mind about an update, you can safely tell CloudFormation to roll it back. You can also tell
 CloudFormation to tear down everything it created, and it will give you your AWS account back in the original state
 - The problems arise when you modify something manually that should be under CloudFormation’s control, because when you do that, you can expect unpredictable behavior
-- Our rule of thumb is to let CloudFormation deal with all the AWS things that are either static or change very rarely; things such as VPC configurations, security
-groups, load balancers, deployment pipelines, and IAM roles. Other things, such as DynamoDB tables, Kinesis streams, Auto Scaling settings, and sometimes S3 buckets,
-are better managed elsewhere
+- Our rule of thumb is to let CloudFormation deal with all the AWS things that are either static or change very rarely; things such as VPC configurations, security groups, load balancers, deployment pipelines, and IAM roles. Other things, such as DynamoDB tables, Kinesis streams, Auto Scaling settings, and sometimes S3 buckets, are better managed elsewhere.
+
+- With Ref! whe can pass parameters pointing to the same YAML document or somewhere else.
+We can predefined parameters such as AWS::AccountID, AWS::Region, AWS::NotificationARNs etc
+
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html
 
 
 Route 53
