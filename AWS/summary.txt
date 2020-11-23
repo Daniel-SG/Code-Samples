@@ -612,6 +612,7 @@ CloudFormation to tear down everything it created, and it will give you your AWS
 
 - With Ref! whe can pass parameters pointing to the same YAML document or somewhere else.
 We can predefined parameters such as AWS::AccountID, AWS::Region, AWS::NotificationARNs etc
+You can even output the variables so that other templates can use it
 
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html
 
