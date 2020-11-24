@@ -410,7 +410,7 @@ DynamoDB
 • Integrated with IAM for security, authorization and administration
 • Enables event driven programming with DynamoDB Streams
 • Low cost and auto scaling capabilities
-• Useful for B-Tree data structure
+• Useful for key value data structure
 • It is better to start on Demand nad later on Provision Capacity
 • If on demand is too expensive, probably Dynamo is not the best option or you
 • Local index: Local indexes come with the constraint that all the records that share the same partition key need to fit in 10 GB, and once that allocation
