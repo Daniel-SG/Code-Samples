@@ -285,3 +285,22 @@ val r = a.get("foo") match {
     def eat: Unit = println("nomnomnom")
     def eat(animal: Animal): Unit = println(s"I'm a croc and I'm eating ${animal.creatureType}")
   }
+    
+    
+    
+    // anonymous classes
+    abstract class Animal {
+    def eat: Unit
+  }
+
+  
+  val funnyAnimal: Animal = new Animal { // anonymous class
+    override def eat: Unit = println("ahahahahahaah")
+  }
+  /*
+    equivalent with
+    class AnonymousClasses$$anon$1 extends Animal {
+      override def eat: Unit = println("ahahahahahaah")
+    }
+    val funnyAnimal: Animal = new AnonymousClasses$$anon$1
+   */
