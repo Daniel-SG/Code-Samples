@@ -172,3 +172,31 @@ DynamoDB Streams
  • Could implement Cross Region Replicationusing Streams
 • Stream has 24 hours of data retention
 • Configurable batch size (up to 1,000 rows,6 MB)
+
+DynamoDB TTL (Time to Live)
+• TTL = automatically delete an item after an expiry date / time
+• TTL is provided at no extra cost, deletions do not use WCU / RCU
+• TTL is a background task operated by the DynamoDB service itself
+• Helps reduce storage and manage the table size over time
+• Helps adhere to regulatory norms
+• TTL is enabled per row (you define a TTL column, and add a date there)
+• DynamoDB typically deletes expired items within 48 hours of expiration
+• Deleted items due to TTL are also deleted in GSI / LSI
+• DynamoDB Streams can help recover expired items
+
+DynamoDB - Security & Other Features
+•VPC Endpoints available to access DynamoDB without internet
+•Access fully controlled by IAM
+•Encryption at rest using KMS
+•Encryption in transit using SSL / TLS
+•Backup and Restore feature available
+•Point in time restore like RDS
+•No performance impact
+•Global Tables
+•Multi region, fully replicated, high performance
+•Amazon Database Migration Service (DMS) can be used to migrate to DynamoDB (from Mongo, Oracle, MySQL, S3, etc
+•You can launch a local DynamoDB on your computer for development purposes
+
+DynamoDB – Storing large objects
+• Max size of an item in DynamoDB = 400 KB
+• For large objects, store them in S3 and reference them in DynamoDB
