@@ -21,6 +21,7 @@ object Basics {
     val myTup6 = ("Plato", "Kant", "Voltaire", "Descartes", "deBeauvoir", "Camus")
     val myStr = myTup6.toString
     println(myTup6)
+    println(myTup6.copy(_1="changed!")
     println(myTup6._1.sorted)
 
     println(myTup6.productElement(2))
@@ -120,7 +121,7 @@ object Basics {
     devi(1)="second"
 
     println("-----Vector------")
-    println("Vector has	flexible	size and can be updated")
+    println("Vector has	flexible	size and can be updated, good performance for large sizes")
     var vec = Vector(1, 18, 6)
     vec.updated(1, 30)
     vec = vec :+ 5
@@ -132,6 +133,15 @@ object Basics {
     val myMap: Map[Int,String] =  Map()
     val myMap: Map[Int,String] = Map(1 -> "a", 2 -> "b")
     val myMap2 = Map(1 -> "a", 2 -> "b")
+    val phonebook = Map(("Jim", 555), "Daniel" -> 789, ("JIM", 9000)).withDefaultValue(-1) 
+    //with withDefaultValue it doesn't fail if try to retry a none existant key
+    println(phonebook("Mary")) //-1
+    println(phonebook("Jim")) //555
+    val newPairing = "Mary" -> 678
+    val newPhonebook = phonebook + newPairing //Add a new element in the Map
+    println(phonebook.filterKeys(x => x.startsWith("J")))//Jim -> 555
+    // mapValues
+    println(phonebook.mapValues(number => "0245-" + number)) //Map(Jim -> 0245-555, Daniel -> 0245-789, JIM -> 0245-9000)
     
     myMap2 foreach (x => println (x._1 + "-->" + x._2))
     for ((k,v) <- myMap) printf("key: %s, value: %s\n", k, v)
