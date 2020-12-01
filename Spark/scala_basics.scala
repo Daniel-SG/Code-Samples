@@ -85,10 +85,46 @@ object Basics {
     //Collections
 
     println("-----SEQ------")
-    println("En SEQ puedes acceder por index y preguntar si contiene un valor")
+    println("En SEQ puedes acceder por index y preguntar si contiene un valor, head and tail appending prepending Sorting")
     val mySeq = Seq("MeToo", "Ronin", "iFruit")
     println(mySeq(0))
     println(mySeq.contains("manolo"))
+    println(mySeq.reverse)
+    println(mySeq.sorted)
+    println(mySeq ++ Seq("another","added","name"))
+    val range:Seq[Int] = 1 to 10 //1 until 10
+    range.foreach(println)
+    
+    println("-----LIST------")
+    println("En list puedes acceder por indice,Lists can contain	Collection	and	Tuple elements	as	well	as	simple	types")
+    println("Flexible	size –Elements	are	immutable,	so	they	cannot	be	changed	by	assignment")
+    println("Fast	addition	and	removal	at	head")
+    println("Slow	access	to	arbitrary	indexes")
+    val models = List("Titanic", "Sorrento", "Ronin")
+    val devices = List(("Sorrento", 10), ("Sorrento", 20), ("iFruit", 30))
+    println(devices(1))
+    val aList = List(1,2,3)
+    val prepended = 42 +: aList :+ 89 //List(42, 1, 2, 3, 89)
+    val apples5 = List.fill(5)("apple") //List(apple, apple, apple, apple, apple)
+    println(aList.mkString("-|-")) //1-|-2-|-3
+    
+    println("-----Arrays------")
+    println("no mutable, pero puedes actualizar los valores")
+    println("Created	with	a	fixed	number	of	elements	and	not	resizable")
+    println("Fast	access	to	arbitrary	indexes")
+    val devs = Array("iFruit", "MeToo", "Ronin")
+    println(devs(2))
+    val devi: Array[String] = new Array[String](4)
+    val threeElements = Array.ofDim[String](3)
+    devi(0)="first"
+    devi(1)="second"
+
+    println("-----Vector------")
+    println("Vector has	flexible	size and can be updated")
+    var vec = Vector(1, 18, 6)
+    vec.updated(1, 30)
+    vec = vec :+ 5
+    println(vec)
 
     println("-----MAP------")
     println("los maps son inmutables, para que sean mutables..")
@@ -109,15 +145,6 @@ object Basics {
     mySet.foreach(println)
     println(mySet("manolo"))
 
-    println("-----LIST------")
-    println("En list puedes acceder por indice,Lists can contain	Collection	and	Tuple elements	as	well	as	simple	types")
-    println("Flexible	size –Elements	are	immutable,	so	they	cannot	be	changed	by	assignment")
-    println("Fast	addition	and	removal	at	head")
-    println("Slow	access	to	arbitrary	indexes")
-    val models = List("Titanic", "Sorrento", "Ronin")
-    val devices = List(("Sorrento", 10), ("Sorrento", 20), ("iFruit", 30))
-    println(devices(1))
-
     println("-----BufferList------")
     println("Como list pero mutable")
     println("Flexible	size")
@@ -131,22 +158,7 @@ object Basics {
     listBuf.foreach(println)
 
 
-    println("-----Arrays------")
-    println("no mutable, pero puedes actualizar los valores")
-    println("Created	with	a	fixed	number	of	elements	and	not	resizable")
-    println("Fast	access	to	arbitrary	indexes")
-    val devs = Array("iFruit", "MeToo", "Ronin")
-    println(devs(2))
-    val devi: Array[String] = new Array[String](4)
-    devi(0)="first"
-    devi(1)="second"
-
-    println("-----Vector------")
-    println("Vector has	flexible	size and can be updated")
-    var vec = Vector(1, 18, 6)
-    vec.updated(1, 30)
-    vec = vec :+ 5
-    println(vec)
+    
 
 
     //LOOPS
