@@ -1,3 +1,5 @@
+NoSQL key-value databases Like Riak, Redis , Memcached (Berkeley DB, upscaledb), Project Voldemort and Couchbase.
+
 DynamoDB
 • Fully Managed, Highly available with replication across 3 AZ
 • NoSQL database - not a relational database
