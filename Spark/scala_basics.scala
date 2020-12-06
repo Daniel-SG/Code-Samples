@@ -3,6 +3,8 @@ package com.sundogsoftware.spark
 import scala.collection.immutable
 import scala.collection.mutable
 
+//Higher Order Functions either receive functions as parameters or returns other functions as result
+//Curried functions receive a parameter and returns another function which receives a parameter myfunction(2)(1)
 object Basics {
   def main(args: Array[String]) {
 
