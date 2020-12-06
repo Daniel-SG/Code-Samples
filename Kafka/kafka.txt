@@ -16,10 +16,10 @@ CONSUMERS
 
 PRODUCERS
 
-ACKS=0 -> No responde is requested from the brokers once producers send data. If the broker goes offline or there is an 
+ACKS=0 -> No response is requested from the brokers once producers send data. If the broker goes offline or there is an 
 		exception, we will lose data
-ACKS=1 -> (default) Leader respone is requested but replication is not guarantee, if an ack is not received, the producer my retry.
-		if the leader broker goes offline but replias haven't replicated the data yet, we have data loss
+ACKS=1 -> (default) Leader response is requested but replication is not guarantee, if an ack is not received, the producer may retry.
+		if the leader broker goes offline but the replicas haven't replicated the data yet, we have data loss
 
 ACKS=ALL -> The producer waits for the acknowledge of the Leader + replicas, is the most secure method to avoid data loss but it is slower.
 		it has to be used with min.insunc.replicas
@@ -37,24 +37,24 @@ ZOOKEEPER
 TOPICS
 ./bin/kafka-topics --bootstrap-server localhost:9092 --topic first_topic --create --partitions 3  --replication-factor 1  	--> Create a topic
 ./bin/kafka-topics.sh --zookeeper zk-02.wbe-04.traveljigsaw.com:2181/kafka/ams --list                                     	--> List all topics
-./bin/kafka-topics.sh --zookeeper zk-01.wbe-01.traveljigsaw.com:2181/kafka/lhr --list | sort 								--> List all Kafka topics sorted
-./bin/kafka-topics.sh --zookeeper zk-01.wbe-01.traveljigsaw.com:2181/kafka/lhr --topic web-impression --describe			--> Show partitions for a topic
-./bin/kafka-topics --bootstrap-server localhost:9092 --topic second_topic --delete											--> Delete a topic
+./bin/kafka-topics.sh --zookeeper zk-01.wbe-01.traveljigsaw.com:2181/kafka/lhr --list | sort 	--> List all Kafka topics sorted
+./bin/kafka-topics.sh --zookeeper zk-01.wbe-01.traveljigsaw.com:2181/kafka/lhr --topic web-impression --describe --> Show partitions for a topic
+./bin/kafka-topics --bootstrap-server localhost:9092 --topic second_topic --delete	--> Delete a topic
 
 PRODUCERS
-./bin/kafka-console-producer --broker-list localhost:9092 --topic first_topic												--> Add messages to a topic
+./bin/kafka-console-producer --broker-list localhost:9092 --topic first_topic		--> Add messages to a topic
 ./bin/kafka-console-producer.sh --broker-list kafka-11.lhr4.traveljigsaw.com:9093 --topic testTopic < othertopic.json 		--> Add message from a file to a topic
 
 
 CONSUMERS
-./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic											--> Read a topic from the current offset
+./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic	--> Read a topic from the current offset
 ./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --from-beginning                         --> Read a topic from the beginning
 ./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --max-messages 5                         --> Read 5 messages from that topic
-./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --group first-consumer-group				--> Read from a topic for a group
+./bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --group first-consumer-group		--> Read from a topic for a group
 
 CONSUMER GROUPS
-./bin/kafka-consumer-groups --bootstrap-server localhost:9092 --list 														--> Show list of consumer groups
-./bin/kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group first-consumer-group						--> Describe the consumer group with the offsets
+./bin/kafka-consumer-groups --bootstrap-server localhost:9092 --list 		--> Show list of consumer groups
+./bin/kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group first-consumer-group	--> Describe the consumer group with the offsets
 
 		GROUP                TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG           
 		first-consumer-group first_topic     0          12              13              1              
