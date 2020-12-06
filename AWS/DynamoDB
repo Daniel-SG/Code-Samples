@@ -13,9 +13,6 @@ DynamoDB
 • Useful for key value data structure
 • It is better to start on Demand and later on Provision Capacity
 • If on demand is too expensive, probably Dynamo is not the best option or you
-• global indexes don’t constrain your table size in any way, the downside is if the provisioned throughput of a global index happens to be insufficient
-  to keep up with updates on the main table, the internal queue can get full and then all operations will fail
-
 
 DynamoDB - Basics
 • DynamoDB is made of tables
@@ -30,7 +27,7 @@ DynamoDB - Basics
 
 DynamoDB – Provisioned Throughput
 • Table must have provisioned read and write capacity units per second
-• Eventually Consistent Read (default): If we read just after a write, it’s possible we’ll get unexpected response because of replication
+• Eventually Consistent Read (default): If we read just after a write, it's possible we'll get unexpected response because of replication
 • Strongly Consistent Read: If we read just after a write, we will get the correct data
 
 • Read Capacity Units (RCU): throughput for reads ($0.00013 per RCU)
@@ -54,8 +51,8 @@ If the items are larger than 1 KB, more WCU are consumed
 	We need 120 / 60 * 2 = 4 WCU
 • Option to setup auto-scaling of throughput to meet demand
 • Throughput can be exceeded temporarily using “burst credit”
-• If burst credit are empty, you’ll get a “ProvisionedThroughputException”.
-• It’s then advised to do an exponential back-off retry
+• If burst credit are empty, you'll get a “ProvisionedThroughputException”.
+• It's then advised to do an exponential back-off retry
 • Can use DAX accelerator to have faster troughput
 
 DynamoDB - Partitions Internal
@@ -70,9 +67,6 @@ DynamoDB - Partitions Internal
  
 • WCU and RCU are spread evenly between partitions
 
-AWS API Gateway
-- to call lambda functions and others from the client
-- support several environments
 
 DynamoDB - Writing Data
 • PutItem Write data to DynamoDB (create data or full replace) Consumes WCU
@@ -154,6 +148,9 @@ DynamoDB GSI (Global Secondary Index)
 • Can use all attributes from main table (ALL)
 • Must define RCU / WCU for the index
 • Possibility to add / modify GSI (not LSI)
+• Global indexes don’t constrain your table size in any way, the downside is if the provisioned throughput of a global index happens to be insufficient
+  to keep up with updates on the main table, the internal queue can get full and then all operations will fail
+
 
 DynamoDB - DAX
 • DAX = DynamoDB Accelerator
