@@ -51,7 +51,9 @@ Elastic Network Interface (ENI)
  - They are attached to a specific AZ
  - They can be moved easily from one EC2 instance to another
 
-Load Balancers
+Load Balancers (ELB)
+Redirect the traffic to different EC2 instances
+-Makes health checks to check which instances are available and redicret the traffic accordingly
 -There are 3 types
  1. Classic load balancer, supports HTTP,HTTPS,TCP.(X-Z, disabled by default and free of charge if used)support only one SSL certificate
  2. Application Load Balancer, supports HTTP HTTPS WebSocket (X-Z, Enabled by default and free of charge if used) support several SSL certificates at the same time
@@ -62,7 +64,8 @@ The load balancer then makes another request to your application and finally for
  	- is very fast, low latency
  	- has one static IP per AZ
 	-behave like load balancers, but they work by routing network packets rather than by proxying HTTP requests. it's more like a sophisticated network router.
-	 Our recommendation is to consider using an NLB first, since it offers the peace of mind of not having to worryabout any obscure capacity limits. The fact 	    that it’s also faster and less expensive is a nice bonus.
+	 Our recommendation is to consider using an NLB first, since it offers the peace of mind of not having to worry about any obscure capacity limits. 
+	 The fact that it’s also faster and less expensive is a nice bonus.
 
  - Load Balancers can be internal (may be accessed from outside) or internal
  -Troubleshooting:
