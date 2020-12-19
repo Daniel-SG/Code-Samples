@@ -412,13 +412,22 @@ AWS API Gateway
 AWS DATABASES
 * RDBMS
 	- RDS (MySQL,PostgreSQL,Oracle SQL)
-		Must provision EC2 instance & EBS
+		Must provision EC2 instance & EBS but you CAN NOT make SSH
 		Monitoring through CloudWatch, sends data to cloudwatch every minute
 		High availability, Reliability, supports multi AZ (can read from replicas but writes only in 1)
 		Cost based on provisioned EC2 and EBS
 		2/3 minutes to recover from a failover
 		Storage autoscaling
 		High troughput low latency
+		Automated backups (it has transaction logs every 5 min, retention up to 35 days)
+		Manual Snapshots
+		Read Replicas: 
+			-Up to 5 read replicas instances  to read
+			- Replication is ASYNC so reads are eventually consistent (not updated at the same moment)
+			- Replicas can become their own database
+			- The replicas are used to other process read from them (no write or update)
+			- If the replica is in a different Availability Zone, we are going to be charged by the network cost. (it'sfree within the same AZ)
+			-For disaster recovery we have our replica ina different AZ with SYNC replication and with the same DNS so no human intervention is needed
 
 	- Aurora (PostgreeSQL,MySQL)
 		Multi AZ
