@@ -75,12 +75,38 @@ Aurora (PostgreeSQL,MySQL)
     • Promoting another region (for disaster recovery) has an RTO of < 1 minute
 
 
-		Multi AZ
-		OLTP
-		AutoScaling from 10GB to 64TB
-		Autohealing
-		Serverless option
-		Same as RDS but with less maintenance and more performance
-		Cost per EC2 and storage usage
-		You can trigger procedures stored in Lambda
-		Encryption better than RDS
+ElasticSearch
+
+it's a serch engine where you can add documents and index them, it's spread across many clusters
+• Fully-managed (but not serverless) 
+• Scale up or down without downtime 
+• But this isn’t automatic 
+• Pay for what you use 
+• Instance-hours, storage, data transfer 
+• Network isolation 
+• AWS integration 
+	• S3 buckets (via Lambda to Kinesis) 
+	• Kinesis Data Streams 
+	• DynamoDB Streams 
+	• CloudWatch / CloudTrail 
+	• Zone awareness
+• Dedicated master node(s) 
+• Choice of count and instance types 
+• “Domains” 
+• Snapshots to S3 
+• Resource-based policies 
+• Identity-based policies 
+• IP-based policies 
+• Request signing 
+• VPC 
+• Cognito
+
+Amazon ES anti-patterns
+• OLTP 
+	• No transactions 
+	• RDS or DynamoDB is better 
+• Ad-hoc data querying 
+	• Athena is better 
+• Remember Amazon ES is primarily for search & analytics
+
+
