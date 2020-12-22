@@ -46,3 +46,10 @@ Scaling Redshift
   • A new cluster is created while yourold one remains available forreads
   • CNAME is flipped to new cluster(a few minutes of downtime)
   • Data moved in parallel to new compute nodes
+  
+  
+Redshift Distribution Styles
+• AUTO -> Redshift figures it out based on size of data
+• EVEN -> Rows distributed across slices in round robin
+• KEY -> Rows distributed based on one column
+• ALL -> Entire table is copied to every node
