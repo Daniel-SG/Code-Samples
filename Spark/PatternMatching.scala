@@ -50,6 +50,13 @@ sealed class Animal
       case List(1,2,3) :+ 42 => // infix pattern
     }
   
+  //with Lists
+  val numbers = List(1)
+  val description = numbers match {
+    case head :: Nil => println(s"the only element is $head.")
+    case _ =>
+  }
+  
    // generators are also based on PATTERN MATCHING
   val tuples = List((1,2), (3,4))
   val filterTuples = for {
@@ -76,15 +83,25 @@ sealed class Animal
     case _ => "something else"
   } // partial function literal
   
-// both expressopns are the same
-  
-  val mappedList2 = list.map { x => x match {
-      case v if v % 2 == 0 => v + " is even"
-      case 1 => "the one"
-      case _ => "something else"
-    }
-  }
   println(mappedList)
   
+  
+  //In case we have a class but we can't make a case class for patter matching we can create an object with the unapply method
+  object even {
+    def unapply(arg: Int): Boolean = arg % 2 == 0
+  }
+
+  object singleDigit {
+    def unapply(arg: Int): Boolean = arg > -10 && arg < 10
+  }
+
+  val n: Int = 8
+  val mathProperty = n match {
+    case singleDigit() => "single digit"
+    case even() => "an even number"
+    case _ => "no property"
+  }
+
+  println(mathProperty)
   
 }
