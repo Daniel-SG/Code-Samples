@@ -320,3 +320,13 @@ val r = a.get("foo") match {
     }
     val funnyAnimal: Animal = new AnonymousClasses$$anon$1
    */
+            
+   class Mutable {
+      private var internalMember: Int = 0 // private for OO encapsulation
+      def member = internalMember // "getter"
+      def member_=(value: Int): Unit =
+        internalMember = value // "setter"
+  }
+
+  val aMutableContainer = new Mutable
+  aMutableContainer.member = 42 // rewrittern as aMutableContainer.member_=(42) like a setter
