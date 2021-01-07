@@ -330,3 +330,12 @@ val r = a.get("foo") match {
 
   val aMutableContainer = new Mutable
   aMutableContainer.member = 42 // rewrittern as aMutableContainer.member_=(42) like a setter
+            
+            
+  // lazy DELAYS the evaluation of values and they are only executed once
+  lazy val x: Int = {
+    println("hello")
+    42
+  }
+  println(x)
+  println(x)
