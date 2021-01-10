@@ -16,6 +16,8 @@ for(int i = 0; i < end; i++){
 
 //Map
 HashMap<String,Integer> hm=new HashMap<String,Integer>();
+Map<Long, Long> map = new HashMap<>();
+map.put(n, map.getOrDefault(n, 0L) + 1);
 
 //Iterate map 
 mapIterator<Map.Entry<String, String>> itr = gfg.entrySet().iterator();
@@ -35,10 +37,13 @@ myLinkedList.add("First"); 
 System.out.println(myLinkedList); 
 
 
-@Override  public boolean equals(Object obj)   { 
-if (obj == null)   return false;  
-if (obj == this)  return true;  
-return this.getRegno() == ((Employee) obj). getRegno(); 
+@Override public boolean equals(Object obj){
+		if (obj == null) return false;
+		if (obj == this) return true;
+		
+		return this.name == ((Player) obj).name;
+		
+	} 
 
 }  ----public class Person implements Comparable<Person> {
     //...
