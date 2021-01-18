@@ -1,4 +1,4 @@
-NoSQL key-value databases Like Riak, Redis , Memcached (Berkeley DB, upscaledb), Project Voldemort and Couchbase.
+NoSQL key-value databases Like DynamoDB,Riak, Redis , Memcached (Berkeley DB, upscaledb), Project Voldemort and Couchbase.
 https://www.thoughtworks.com/insights/blog/nosql-databases-overview
 
 DynamoDB
