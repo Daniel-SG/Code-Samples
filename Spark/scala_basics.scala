@@ -135,6 +135,9 @@ object Basics {
     val myMap: Map[Int,String] = Map(1 -> "a", 2 -> "b")
     val myMap2 = Map(1 -> "a", 2 -> "b")
     val phonebook = Map(("Jim", 555), "Daniel" -> 789, ("JIM", 9000)).withDefaultValue(-1) 
+   //Add element
+      var  result = Map("-" -> 0)
+      result += (previous-> maxCountries)
     //with withDefaultValue it doesn't fail if try to retry a none existant key
     println(phonebook("Mary")) //-1
     println(phonebook("Jim")) //555
