@@ -109,6 +109,9 @@ object Basics {
     val prepended = 42 +: aList :+ 89 //List(42, 1, 2, 3, 89)
     val apples5 = List.fill(5)("apple") //List(apple, apple, apple, apple, apple)
     println(aList.mkString("-|-")) //1-|-2-|-3
+    //Mutable List 
+    var listOfFlightId = new ListBuffer[String]()
+    listOfFlightId += flightId  
     
     println("-----Arrays------")
     println("no mutable, pero puedes actualizar los valores")
