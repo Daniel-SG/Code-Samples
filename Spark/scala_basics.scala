@@ -175,9 +175,6 @@ object Basics {
     listBuf.foreach(println)
 
 
-    
-
-
     //LOOPS
     val sorrentoPhones= List("F00L", "F01L", "F10L", "F11L", "F20L", "F21L", "F22L", "F23L", "F24L")
 
@@ -220,7 +217,20 @@ object Basics {
     for (brand <- phonebrands; model <- newmodels) {
       println(brand + " " + model)
     }
-    
+    // print all combinations between two lists
+  val numbers = List(1,2,3,4)
+  val chars = List('a','b','c','d')
+  val colors = List("black", "white")
+
+   // for-comprehensions
+  val forCombinations = for {
+    n <- numbers if n % 2 == 0
+    c <- chars
+    color <- colors
+  } yield "" + c + n + "-" + color
+  println(forCombinations)
+            
+            
  //Some - None
  
 val a = Map("foo" -> "bar", "bar" -> "foo")
