@@ -30,7 +30,7 @@ Centralized Data Warehouse
 	(using cloud services from vendors such as Amazon, Google and Microsoft).
 
 Star Squema
-	- Hay menos joins y las relaciones de PK y GK son sencillas
+	- Hay menos joins y las relaciones de PK y FK son sencillas
 	- Una dimension puede tener datos agregados de otras dimensiones asi que puedes tener datos de 3 dimensiones en una.
 	- normalmente se necesita mas espacio para la dimension
 	- Solo hay un paso de las dimensiones a la tabla F_
