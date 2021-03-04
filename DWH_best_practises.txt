@@ -92,6 +92,9 @@ Type 2: Unlimited history
 Type 3: Limited history  
 	-it takes the previuos and the current value of one specific column
 
+https://en.wikipedia.org/wiki/Slowly_changing_dimension
+
+
 	BEST PRACTISES
 	- Limit the amount of incoming data to be processed
 	- Load first Dimension tables and the Fact tables, the reason is to have all PK and FK updated in the dimensions before than 
