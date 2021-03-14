@@ -1,0 +1,50 @@
+import java.util.Arrays;
+
+public class Player_comparator implements Comparable<Player>{
+
+	String name;
+	int score;
+
+	Player(String name, int score) {
+		this.name = name;
+		this.score = score;
+	}
+	
+	//to know whether two objects are the same, no use for sorted collections
+	@Override public boolean equals(Object obj){
+		if (obj == null) return false;
+		if (obj == this) return true;
+		
+		return this.name == ((Player) obj).name;
+		}
+
+	
+	@Override
+		 public int compareTo(Player o) {
+		      return this.name.compareTo(o.name);
+		  }
+		
+	 
+	public static void main(String[] args) {
+	
+		Player p1 = new Player("Simon",33);
+		Player p2 = new Player("James",30);
+		Player p3 = new Player("Kevin",33);
+		
+		
+		if(p1.equals(p3))System.out.println("Equals");
+		else System.out.println("they are diff");		
+		
+		Player[] arrayPlayers = {p1,p2,p3};
+		Arrays.sort(arrayPlayers);
+		
+		for(int i=0;i<arrayPlayers.length;i++){
+			System.out.println(arrayPlayers[i].name);
+		}
+			
+
+	}
+
+
+
+}
